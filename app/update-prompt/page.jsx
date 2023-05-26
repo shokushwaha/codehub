@@ -1,9 +1,31 @@
 'use client'
 import Form from '@components/Form'
+import WriteLoader from '@components/WriteLoader';
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from 'react'
+import styled from 'styled-components';
 
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* justify-content: center; */
+  padding-top: 10rem;
+
+
+
+
+  
+@media screen and (max-width: 500px) {
+display: flex;
+flex-direction: column;
+flex-direction: column-reverse;
+padding-top: 2rem;
+
+  }
+
+`;
 
 const UpdatePrompt = () => {
     const router = useRouter();
@@ -60,16 +82,19 @@ const UpdatePrompt = () => {
 
     return (
         <>
+            <StyledDiv>
 
-            <Form
+                <Form
 
-                type='Edit'
-                post={post}
-                setPost={setPost}
-                submitting={submitting}
-                hanldeSubmit={editPrompt}
+                    type='Edit'
+                    post={post}
+                    setPost={setPost}
+                    submitting={submitting}
+                    hanldeSubmit={editPrompt}
 
-            />
+                />
+                <WriteLoader />
+            </StyledDiv>
         </>
     )
 }

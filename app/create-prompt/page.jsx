@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from "next/navigation";
 import React, { useState } from 'react'
 import styled from 'styled-components';
+import { Toaster, toast } from 'react-hot-toast';
 const StyledDiv = styled.div`
   display: flex;
   flex-direction: row;
@@ -48,6 +49,7 @@ const CreatePrompt = () => {
                 })
             })
             if (response.ok) {
+                toast.success("Blog created successfully!")
                 router.push('/');
             }
         } catch (error) {
@@ -60,19 +62,46 @@ const CreatePrompt = () => {
     }
 
     return (
-        <StyledDiv>
+        <>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+                gutter={8}
+                containerClassName=""
+                containerStyle={{}}
+                toastOptions={{
+                    // Define default options
+                    className: '',
+                    duration: 5000,
+                    style: {
+                        background: '#363636',
+                        color: '#fff',
+                    },
 
-            <Form
-
-                type='Create'
-                post={post}
-                setPost={setPost}
-                submitting={submitting}
-                hanldeSubmit={createPrompt}
-
+                    // Default options for specific types
+                    success: {
+                        duration: 3000,
+                        theme: {
+                            primary: 'green',
+                            secondary: 'black',
+                        },
+                    },
+                }}
             />
-            <WriteLoader />
-        </StyledDiv>
+            <StyledDiv>
+
+                <Form
+
+                    type='Create'
+                    post={post}
+                    setPost={setPost}
+                    submitting={submitting}
+                    hanldeSubmit={createPrompt}
+
+                />
+                <WriteLoader />
+            </StyledDiv>
+        </>
 
     )
 }

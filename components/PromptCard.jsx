@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react'
-
+import { Toaster, toast } from 'react-hot-toast';
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   const { data: session } = useSession();
   const pathName = usePathname()
@@ -11,7 +11,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
 
   const goToUserProfile = () => {
     if (!session?.user) {
-      alert(`You need to login to see other's profile`)
+      toast.error(`You need to login to see other's profile`)
       return;
     }
 
@@ -22,15 +22,41 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
 
   const goToSingleBlog = (id) => {
     if (!session?.user) {
-      alert(`You need to login to see full blog`)
+      toast.error(`You need to login to see full blog`)
       return;
     }
     router.push(`/single-blog/?id=${id}`)
+
   }
   return (
     <>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        containerClassName=""
+        containerStyle={{}}
+        toastOptions={{
+          // Define default options
+          className: '',
+          duration: 5000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
 
-      <div className={pathName === "/profile" ? "bg-red" : "flex flex-col gap-4  px-4 py-2 rounded-md  flex-wrap bg-white hover:bg-white hover:scale-105 border-2 border-gray-100 shadow hover:border-white"
+          // Default options for specific types
+          success: {
+            duration: 3000,
+            theme: {
+              primary: 'green',
+              secondary: 'black',
+            },
+          },
+        }}
+      />
+
+      <div className={pathName === "/profile" ? "shadow border-b-2 border-gray-400  w-full md:w-1/3 bg-white rounded-md p-2 mx-auto my-4" : "flex flex-col gap-4  px-4 py-2 rounded-md  flex-wrap bg-white hover:bg-white hover:scale-105 border-2 border-gray-100 shadow hover:border-white"
       }
       >
         <div className='flex'>
@@ -47,7 +73,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             <div className='flex flex-col items-start ml-4'>
 
               <h2 className='text-md  font-semi bold hover:cursor-pointer' onClick={goToUserProfile} >@ {post.creator.username}</h2>
-              <p className='text-gray-400 text-sm' >{post.creator.email}</p>
+              <p className='text-gray-400 text-sm ' >{post.creator.email}</p>
             </div>
 
 
@@ -65,7 +91,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
 
             #{post.tag}</p>
         </div>
-        <div className='px-4'>
+        <div className='py-2'>
 
           <button onClick={() => goToSingleBlog(post._id)} className='flex items-center gap-2 bg-gray-200 px-2 py-1 rounded-md shadow hover:bg-sky-100 ' >
             Read More
@@ -81,13 +107,13 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
         {session?.user.id === post.creator._id && pathName === "/profile" && (
           <div className='flex gap-4 items-center justify-between'>
             <p
-              className='font-inter text-sm  cursor-pointer bg-green-400 p-2 rounded-md'
+              className='font-inter text-sm  cursor-pointer bg-green-400 px-5 py-1 rounded-md hover:bg-green-500 shadow'
               onClick={handleEdit}
             >
               Edit
             </p>
             <p
-              className='font-inter text-sm  cursor-pointer bg-orange-400 p-2 rounded-md'
+              className='font-inter text-sm  cursor-pointer bg-orange-400 px-5 py-1 rounded-md hover:bg-orange-500 shadow'
               onClick={handleDelete}
             >
               Delete

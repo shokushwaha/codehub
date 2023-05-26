@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import Profile from '@components/Profile';
 import Loader from '@components/Loader';
 import HandLoader from '@components/HandLoader';
+import BlogLoader from '@components/BlogLoader';
 const MyProfile = () => {
     const { data: session } = useSession();
     const [posts, setPosts] = useState([])
@@ -74,16 +75,17 @@ const MyProfile = () => {
             </div>
         )
     return (
-        <div className='mt-10 px-8 py-8'>
+        <>
 
             <Profile
                 name={session?.user.id === userId ? `${session.user.name}` : `${userDet.username}`}
-                desc='Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination'
+                desc={session?.user.id === userId ? `Welcome to ${session.user.name}'s profile. These are all the blogs created by you!` : `Welcome to ${userDet.username}'s profile. `}
                 data={posts}
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
             />
-        </div>
+            {/* <BlogLoader /> */}
+        </>
     )
 }
 

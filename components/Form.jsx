@@ -56,7 +56,7 @@ const Form = (
           disabled={submitting}
           className='bg-green-400 rounded-md px-3 py-1 shadow hover:bg-green-500'
         >
-          {submitting ? `${type}..., Hold on!⚡⚡` : type}
+          {submitting ? ` Hold on!⚡⚡` : type}
         </button>
 
       </form>
