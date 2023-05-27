@@ -57,8 +57,9 @@ const Feed = () => {
   const fetchPosts = async () => {
     setLoading(true);
     const response = await fetch("/api/prompt");
+    console.log(response)
     const data = await response.json();
-
+    console.log(data)
     setAllPosts(data);
     setLoading(false);
   };
