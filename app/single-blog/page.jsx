@@ -35,8 +35,7 @@ const SingleBlog = () => {
 
     }
 
-    if (!session)
-        router.push('/');
+
 
     return (
         <div className='bg-slate-100 flex  justify-center w-full min-h-screen px-10 py-12'>
