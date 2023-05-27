@@ -9,6 +9,5 @@ export const GET = async (req, res) => {
     } catch (error) {
         console.log(error);
         return new Response("Failed to fetch all prompts", { status: 500 });
-
     }
 }

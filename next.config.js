@@ -13,7 +13,8 @@ const nextConfig = {
             topLevelAwait: true,
         }
         return config
-    }
+    },
+    staticPageGenerationTimeout: 1000,
 }
 
 module.exports = nextConfig
