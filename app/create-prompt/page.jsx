@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import React, { useState } from 'react'
 import styled from 'styled-components';
 import { Toaster, toast } from 'react-hot-toast';
+
+
 const StyledDiv = styled.div`
   display: flex;
   flex-direction: row;
@@ -34,6 +36,9 @@ const CreatePrompt = () => {
         prompt: '',
         tag: '',
     });
+
+
+
     const { data: session } = useSession();
     const createPrompt = async (e) => {
         e.preventDefault();
